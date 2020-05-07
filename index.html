@@ -1,0 +1,503 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+.hand {
+    font-family     : Arial;
+    text-align      : center;
+    width           : 100px;
+    height          : 15px;
+    background      : #ccc;
+    border          : 1px solid #000;
+    box-shadow      : 1px 1px 5px -1px #000;
+    padding         : 10px;
+    margin-bottom   : 10px;
+    cursor          : pointer;
+}
+
+.hand:hover {
+    text-decoration : underline;   
+}
+.handplay {
+    font-family     : Arial;
+    text-align      : center;
+    width           : 100px;
+    height          : 15px;
+    background      : #ccc;
+    border          : 1px solid #000;
+    box-shadow      : 1px 1px 5px -1px #000;
+    padding         : 10px;
+    margin-bottom   : 10px;
+    cursor          : pointer;
+    color: transparent;
+}
+
+.handplay:hover {
+    color: black;
+    text-decoration : underline;   
+}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+    </style> 
+  </head>
+  <body>
+<div id ="playerStart">
+    <button onClick="sendPlayers()">Players</button>
+    <label for="cars">Choose Number of Players:</label>
+<select id="players">
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+  <option value="4">Four</option>
+  <option value="5">Five</option>
+  <option value="6">Six</option>
+</select>
+</div>
+<div id="twoplayerroom" style="display: none">
+    <button class="roombutton1" onClick="sendRoom1()">Join as Player 1</button>
+    <button id="roombutton2" onClick="sendRoom2()">Join as Player 2</button>
+</div>
+<div id="threeplayerroom" style="display: none">
+    <button class="roombutton1" onClick="sendRoom1()">Join as Player 1</button>
+    <button class="roombutton2" onClick="sendRoom2()">Join as Player 2</button>
+    <button class="roombutton3" onClick="sendRoom3()">Join as Player 3</button>
+</div>
+<div id="fourplayerroom" style="display: none">
+    <button class="roombutton1" onClick="sendRoom1()">Join as Player 1</button>
+    <button class="roombutton2" onClick="sendRoom2()">Join as Player 2</button>
+    <button class="roombutton3" onClick="sendRoom3()">Join as Player 3</button>
+    <button class="roombutton4" onClick="sendRoom4()">Join as Player 4</button>
+</div>
+<div id="fiveplayerroom" style="display: none">
+    <button class="roombutton1" onClick="sendRoom1()">Join as Player 1</button>
+    <button class="roombutton2" onClick="sendRoom2()">Join as Player 2</button>
+    <button class="roombutton3" onClick="sendRoom3()">Join as Player 3</button>
+    <button class="roombutton4" onClick="sendRoom4()">Join as Player 4</button>
+    <button class="roombutton5" onClick="sendRoom5()">Join as Player 5</button>
+</div>
+<div id="sixplayerroom" style="display: none">
+    <button class="roombutton1" onClick="sendRoom1()">Join as Player 1</button>
+    <button class="roombutton2" onClick="sendRoom2()">Join as Player 2</button>
+    <button class="roombutton3" onClick="sendRoom3()">Join as Player 3</button>
+    <button class="roombutton4" onClick="sendRoom4()">Join as Player 4</button>
+    <button class="roombutton5" onClick="sendRoom5()">Join as Player 5</button>
+    <button class="roombutton6" onClick="sendRoom6()">Join as Player 6</button>
+</div>
+<div id="move" style="display: none">
+    <button id="player1Claim" onClick="sendCard1()">Player 1 Claim</button>
+    <button id="player2Claim" onClick="sendCard2()">Player 2 Claim</button>
+</div>
+<div id="move3" style="display: none">
+    <button id="player1Claim" onClick="sendCard1()">Player 1 Claim</button>
+    <button id="player2Claim" onClick="sendCard2()">Player 2 Claim</button>
+    <button id="player3Claim" onClick="sendCard3()">Player 3 Claim</button>
+</div>
+<div id="move4" style="display: none">
+    <button id="player1Claim" onClick="sendCard1()">Player 1 Claim</button>
+    <button id="player2Claim" onClick="sendCard2()">Player 2 Claim</button>
+    <button id="player3Claim" onClick="sendCard3()">Player 3 Claim</button>
+    <button id="player4Claim" onClick="sendCard4()">Player 4 Claim</button>
+</div>
+<div id="move5" style="display: none">
+    <button id="player1Claim" onClick="sendCard1()">Player 1 Claim</button>
+    <button id="player2Claim" onClick="sendCard2()">Player 2 Claim</button>
+    <button id="player3Claim" onClick="sendCard3()">Player 3 Claim</button>
+    <button id="player4Claim" onClick="sendCard4()">Player 4 Claim</button>
+    <button id="player5Claim" onClick="sendCard5()">Player 5 Claim</button>
+</div>
+<div id="move6" style="display: none">
+    <button id="player1Claim" onClick="sendCard1()">Player 1 Claim</button>
+    <button id="player2Claim" onClick="sendCard2()">Player 2 Claim</button>
+    <button id="player3Claim" onClick="sendCard3()">Player 3 Claim</button>
+    <button id="player4Claim" onClick="sendCard4()">Player 4 Claim</button>
+    <button id="player5Claim" onClick="sendCard5()">Player 5 Claim</button>
+    <button id="player6Claim" onClick="sendCard6()">Player 6 Claim</button>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      const socket = io("http://localhost:8080");
+      var hideAfterStart = document.getElementById("playerStart");
+        var appearAfterStart = document.getElementById("twoplayerroom");
+        var alsoappearAfterStart = document.getElementById("move");
+        var appearAfterStart3 = document.getElementById("threeplayerroom");
+        var alsoappearAfterStart3 = document.getElementById("move3");
+        var appearAfterStart4 = document.getElementById("fourplayerroom");
+        var alsoappearAfterStart4 = document.getElementById("move4");
+        var appearAfterStart5 = document.getElementById("fiveplayerroom");
+        var alsoappearAfterStart5 = document.getElementById("move5");
+        var appearAfterStart6 = document.getElementById("sixplayerroom");
+        var alsoappearAfterStart6 = document.getElementById("move6");
+
+
+$(document).ready(function() {
+    $('#playerSpace').on('click', 'div', function() {
+        $(this).hide(1000)
+        var newElement = document.createElement('div');
+        var playedCard = this.id
+    socket.emit("playedCard", playedCard);
+    // Do something on an existent or future .dynamicElement
+});
+});
+
+    socket.on("sendCard1", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal1").innerText = 'Player 1 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards1").appendChild(newElement);
+      });
+
+    function sendCard1() {
+    var sendCard1 = $('.handplay').text();
+    socket.emit("sendCard1", sendCard1);
+      };
+
+    function sendCard2() {
+    var sendCard2 = $('.handplay').text();
+    socket.emit("sendCard2", sendCard2);
+      };
+
+    socket.on("sendCard2", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal2").innerText = 'Player 2 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards2").appendChild(newElement);
+      });
+
+    function sendCard3() {
+    var sendCard3 = $('.handplay').text();
+    socket.emit("sendCard3", sendCard3);
+      };
+
+    socket.on("sendCard3", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal3").innerText = 'Player 3 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards3").appendChild(newElement);
+      });
+
+    function sendCard4() {
+    var sendCard4 = $('.handplay').text();
+    socket.emit("sendCard4", sendCard4);
+      };
+
+    socket.on("sendCard4", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal4").innerText = 'Player 4 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards4").appendChild(newElement);
+      });
+
+    function sendCard5() {
+    var sendCard5 = $('.handplay').text();
+    socket.emit("sendCard5", sendCard5);
+      };
+
+    socket.on("sendCard5", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal5").innerText = 'Player 5 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards5").appendChild(newElement);
+      });
+
+    function sendCard6() {
+    var sendCard6 = $('.handplay').text();
+    socket.emit("sendCard1", sendCard6);
+      };
+
+        socket.on("sendCard6", function(data)
+      {
+        $('.handplay').remove()
+        document.getElementById("inReveal6").innerText = 'Player 6 Revealed';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "hand";
+    newElement.innerHTML = data;
+    document.getElementById("flippedCards6").appendChild(newElement);
+      });
+    
+    socket.on("playedCard", function(data)
+      {document.getElementById("inPlay").innerText = 'In Play';
+        var newElement = document.createElement('div');
+        newElement.id = data; 
+    newElement.className = "handplay";
+    newElement.innerHTML = data;
+    document.getElementById("gameSpace").appendChild(newElement);;
+      });
+
+      function sendPlayers() {
+        var select_box = document.getElementById("players"); 
+        var playersNum = parseInt(select_box.options[select_box.selectedIndex].value);
+        socket.emit("playerCount", playersNum);
+        console.log(playersNum);
+      };
+
+      socket.on("hideInit", function(data)
+      { hideAfterStart.style.display = "none";
+      console.log(data)
+        if (data === 2) {
+        appearAfterStart.style.display = "block";
+        alsoappearAfterStart.style.display = "block"}
+        else if (data === 3) {
+        appearAfterStart3.style.display = "block";
+        alsoappearAfterStart3.style.display = "block"}
+        else if (data === 4) {
+        appearAfterStart4.style.display = "block";
+        alsoappearAfterStart4.style.display = "block"}
+        else if (data === 5) {
+        appearAfterStart5.style.display = "block";
+        alsoappearAfterStart5.style.display = "block"}
+        else if (data === 6) {
+        appearAfterStart6.style.display = "block";
+        alsoappearAfterStart6.style.display = "block"}
+      });
+
+      socket.on("hand1", function(data) {
+  console.log(data);
+  window.hand1 = data;
+});
+      socket.on("hand2", function(data) {
+  console.log(data);
+  window.hand2 = data;
+});
+      socket.on("hand3", function(data) {
+  console.log(data);
+  window.hand3 = data;
+});
+      socket.on("hand4", function(data) {
+  console.log(data);
+  window.hand4 = data;
+});
+      socket.on("hand5", function(data) {
+  console.log(data);
+  window.hand5 = data;
+});
+      socket.on("hand6", function(data) {
+  console.log(data);
+  window.hand6 = data;
+});
+      socket.on("hideRoom1", function hideRoom1() {
+        var myClasses = document.querySelectorAll('.roombutton1'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+            socket.on("hideRoom2", function hideRoom2() {
+        var myClasses = document.querySelectorAll('.roombutton2'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+                  socket.on("hideRoom3", function hideRoom3() {
+        var myClasses = document.querySelectorAll('.roombutton3'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+                        socket.on("hideRoom4", function hideRoom4() {
+        var myClasses = document.querySelectorAll('.roombutton4'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+                              socket.on("hideRoom5", function hideRoom5() {
+        var myClasses = document.querySelectorAll('.roombutton5'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+                                    socket.on("hideRoom6", function hideRoom6() {
+        var myClasses = document.querySelectorAll('.roombutton6'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+      });
+
+      socket.on("hand1Reveal", function showHand1() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand1);
+        for (var c in window.hand1) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand1[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand1[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+      socket.on("hand2Reveal", function showHand2() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand2);
+        for (var c in window.hand2) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand2[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand2[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+      socket.on("hand3Reveal", function showHand3() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand3);
+        for (var c in window.hand3) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand3[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand3[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+      socket.on("hand4Reveal", function showHand4() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand4);
+        for (var c in window.hand4) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand4[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand4[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+      socket.on("hand5Reveal", function showHand5() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand5);
+        for (var c in window.hand5) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand5[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand5[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+      socket.on("hand6Reveal", function showHand6() {
+        document.getElementById("header").innerText = 'Your Hand';
+        console.log(window.hand6);
+        for (var c in window.hand6) {
+    var newElement = document.createElement('div');
+    newElement.id = window.hand6[c]; 
+    newElement.className = "hand";
+    newElement.innerHTML = window.hand6[c];
+    document.getElementById("playerSpace").appendChild(newElement);
+} 
+      });
+
+      function sendRoom1() {
+        socket.emit("roomInit1");
+        socket.emit("hideRoom1");
+        socket.emit("showHand1");
+      };
+      function sendRoom2() {
+        socket.emit("roomInit2");
+        socket.emit("hideRoom2");
+        socket.emit("showHand2");
+      };
+      function sendRoom3() {
+        socket.emit("roomInit3");
+        socket.emit("hideRoom3");
+        socket.emit("showHand3");
+      };
+      function sendRoom4() {
+        socket.emit("roomInit4");
+        socket.emit("hideRoom4");
+        socket.emit("showHand4");
+      };
+      function sendRoom5() {
+        socket.emit("roomInit5");
+        socket.emit("hideRoom5");
+        socket.emit("showHand5");
+      };
+      function sendRoom6() {
+        socket.emit("roomInit6");
+        socket.emit("hideRoom6");
+        socket.emit("showHand6");
+      };
+
+      function sendMessage() {
+        socket.emit("message");
+      };
+
+      socket.on("greeting", function(data) {
+        document.getElementById("heythere").innerText = data;
+      });
+
+    </script>
+<h1 id = "header"> </h1>
+<h2 id = "heythere"> </h2>
+<div class="row">
+<div class = "column" id = "playerSpace">
+</div>
+<div class = "column" id = "gameSpace">
+<h2 id = "inPlay"> </h2>
+</div>
+<div class = "column" id = "flippedCards1">
+<h2 id = "inReveal1"> </h2>
+</div>
+<div class = "column" id = "flippedCards2">
+<h2 id = "inReveal2"> </h2>
+</div>
+<div class = "column" id = "flippedCards3">
+<h2 id = "inReveal3"> </h2>
+</div>
+<div class = "column" id = "flippedCards4">
+<h2 id = "inReveal4"> </h2>
+</div>
+<div class = "column" id = "flippedCards5">
+<h2 id = "inReveal5"> </h2>
+</div>
+<div class = "column" id = "flippedCards6">
+<h2 id = "inReveal6"> </h2>
+</div>
+  </body>
+</html>
